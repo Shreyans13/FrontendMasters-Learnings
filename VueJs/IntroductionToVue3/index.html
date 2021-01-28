@@ -1,0 +1,35 @@
+<html>
+	<head>
+		<meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+		<meta content="utf-8" http-equiv="encoding" />
+		<title>Vue Learnings</title>
+	</head>
+	<body>
+		<div id="app">
+			<input type="text" name="info" v-model="info" id="">
+			<app-child :info=info></app-child>
+		</div>
+		<script type="text/x-template" id="modalcomponent">
+			<div class="img-contain">
+				{{ info }}
+			</div>
+		</script>
+		<script src="https://unpkg.com/vue@next"></script>
+		<script>
+			const app = Vue.createApp({
+				data() {
+					return {
+						info : ""
+					}
+				}
+			});
+
+			app.component("app-child", {
+				template: `#modalcomponent`,
+				props : ["info"]
+			});
+
+			app.mount("#app");
+		</script>
+	</body>
+</html>

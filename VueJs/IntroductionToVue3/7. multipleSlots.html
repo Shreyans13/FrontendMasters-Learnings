@@ -1,0 +1,37 @@
+<html>
+	<head>
+		<meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+		<meta content="utf-8" http-equiv="encoding" />
+		<title>Vue Learnings</title>
+	</head>
+	<body>
+		<div id="app">
+			<app-slots>
+				<template v-slot:header>
+					<h2>This is a header</h2>
+				</template>
+				<template v-slot:default>
+					<p>This is a default</p>
+				</template>
+				<template v-slot:footer>
+					<h3>This is a footer</h3>
+				</template>
+			</app-slots>
+		</div>
+
+		<script type="text/x-template" id="modalcomponent">
+			<header><slot name="header"></slot></header>
+			<div><slot></slot></div>
+			<footer><slot name="footer"></slot></footer>
+		</script>
+
+		<script src="https://unpkg.com/vue@next"></script>
+		<script>
+			const app = Vue.createApp({});
+			app.component("app-slots", {
+				template: "#modalcomponent",
+			});
+			app.mount("#app");
+		</script>
+	</body>
+</html>

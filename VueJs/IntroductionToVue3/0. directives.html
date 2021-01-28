@@ -1,0 +1,30 @@
+<html>
+	<head>
+		<meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+		<meta content="utf-8" http-equiv="encoding" />
+		<title>Vue Learnings</title>
+	</head>
+	<body>
+		<div id="app">
+			<input v-model.number="num1" type="number" /> +
+			<input v-model.number="num2" type="number" /> = {{num1 + num2}}<br />
+			<select v-model="optionSelected">
+				<option v-for="i in options" :value="i">{{i}}</option>
+			</select>
+			{{optionSelected}}
+		</div>
+		<script src="https://unpkg.com/vue@next"></script>
+		<script>
+			Vue.createApp({
+				data() {
+					return {
+						num1: 0,
+						num2: 0,
+						optionSelected: "",
+						options: ["option1", "option2", "option3", "option4"],
+					};
+				},
+			}).mount("#app");
+		</script>
+	</body>
+</html>

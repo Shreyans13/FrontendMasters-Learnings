@@ -1,0 +1,127 @@
+<html>
+	<head>
+		<meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+		<meta content="utf-8" http-equiv="encoding" />
+		<title>Vue Learnings</title>
+	</head>
+	<body>
+		<div id="app">
+			<form @submit.prevent="submit">
+				Title<input required type="text" v-model="title" /><br />
+				Name<input required type="text" v-model="name" /><br />
+				Rating<input required type="number" v-model="rating" /><br />
+				Label<select v-model="label">
+					<option value="Marvel">Marvel</option>
+					<option value="DC">DC</option></select
+				><br />
+				<button type="submit">Sumbit</button>
+			</form>
+			<p>
+				Search :
+				<select v-model="searchType">
+					<option v-for="i in columns" :value="i">{{i}}</option>
+					<option value=""></option>
+				</select>
+				<input
+					type="text"
+					v-model="search"
+					v-if="searchType && searchType !== 'rating'"
+				/>
+			</p>
+			Search type :
+			<p>{{searchType}}</p>
+			<br />
+			<button @click="sortLowest">Lowest Rated</button>
+			<button @click="sortHighest">Highest Rated</button>
+			<table border="1">
+				<thead>
+					<tr>
+						<th v-for="i in columns">{{i}}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr v-for="i in computedInfo">
+						<td v-for="j in columns">{{i[j]}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<script src="https://unpkg.com/vue@next"></script>
+		<script>
+			Vue.createApp({
+				data() {
+					return {
+						title: "",
+						name: "",
+						label: "",
+						search: "",
+						searchType: "",
+						rating: 0,
+						columns: ["title", "name", "label", "rating"],
+						info: [
+							{
+								title: "Avengers EndGame",
+								name: "Marvel",
+								label: "Marvel",
+								rating: 25,
+							},
+							{
+								title: "Batman",
+								name: "DC",
+								label: "DC",
+								rating: 45,
+							},
+							{
+								title: "Avengers InfinityWar",
+								name: "Marvel",
+								label: "Marvel",
+								rating: 45,
+							},
+							{
+								title: "Superman",
+								name: "DC",
+								label: "DC",
+								rating: 115,
+							},
+						],
+					};
+				},
+				methods: {
+					submit() {
+						this.info.push({
+							title: this.title,
+							name: this.name,
+							label: this.label,
+							rating: this.rating,
+						});
+						this.title = "";
+						this.name = "";
+						this.label = "";
+						this.rating = "";
+					},
+					sortLowest() {
+						this.info.sort((a, b) =>
+							a.rating > b.rating ? 1 : -1
+						);
+					},
+					sortHighest() {
+						this.info.sort((a, b) =>
+							a.rating < b.rating ? 1 : -1
+						);
+					},
+				},
+				computed: {
+					computedInfo() {
+						if (this.searchType != "") {
+							return this.info.filter((data) =>
+								data[this.searchType].match(
+									new RegExp(this.search, "i")
+								)
+							);
+						} else return this.info;
+					},
+				},
+			}).mount("#app");
+		</script>
+	</body>
+</html>

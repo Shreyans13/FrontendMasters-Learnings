@@ -1,0 +1,89 @@
+<html>
+	<head>
+		<meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+		<meta content="utf-8" http-equiv="encoding" />
+		<title>Vue Learnings</title>
+		<style>
+			body {
+				font-family: "Bitter", serif;
+			}
+
+			#app {
+				text-align: center;
+				padding: 70px;
+				max-width: 360px;
+				font-size: 16px;
+				margin: 0 auto;
+				display: table;
+				line-height: 2em;
+			}
+
+			label {
+				padding-right: 10px;
+			}
+
+			button {
+				border: none;
+				background: orangered;
+				color: white;
+				padding: 0.5em 1em;
+				border-radius: 3px;
+			}
+
+			.thumbs {
+				font-size: 40px;
+				margin-top: 20px;
+			}
+
+			li {
+				text-align: left;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<h3>Order from: <strong>{{ restaurantName }}</strong></h3>
+			<h4>Options</h4>
+			<ul>
+				<li v-for="option in options" :key="option">{{ option }}</li>
+				<p>Delivery time: {{ deliveryTime }} minutes</p>
+				<p v-if="freeDelivery">Free Delivery!</p>
+			</ul>
+			<button @click="addItems">Add an item + {{ numItems }}</button>
+		</div>
+		<script src="https://unpkg.com/vue@next"></script>
+		<script>
+			const { ref } = Vue;
+			Vue.createApp({
+				setup() {
+					const restaurantName = ref("Lol no resturant name"),
+						options = ref([
+							"option1",
+							"option2",
+							"option3",
+							"add a real option",
+							"lol",
+							"you just tried it!!",
+						]),
+						deliveryTime = ref("30 mins"),
+						freeDelivery = ref(true),
+						numItems = ref(0);
+
+					function addItems() {
+						numItems.value++;
+					}
+
+					return {
+						restaurantName,
+						options,
+						deliveryTime,
+						freeDelivery,
+						numItems,
+
+						addItems,
+					};
+				},
+			}).mount("#app");
+		</script>
+	</body>
+</html>

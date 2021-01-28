@@ -1,0 +1,43 @@
+<html>
+	<head>
+		<meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+		<meta content="utf-8" http-equiv="encoding" />
+		<title>Vue Learnings</title>
+	</head>
+	<body>
+		<div id="app">
+			<div>
+				<h2>{{ text }}</h2>
+
+				<order-button @gettaco="updateTaco"></order-button>
+			</div>
+		</div>
+
+		<script type="text/x-template" id="order-button">
+			<button @click="$emit('gettaco')">
+			  Click me to order a taco
+			</button>
+		</script>
+		<script src="https://unpkg.com/vue@next"></script>
+		<script>
+			const app = Vue.createApp({
+				data() {
+					return {
+						text: "where is my taco...",
+					};
+				},
+				methods: {
+					updateTaco() {
+						this.text = "🌮!";
+					},
+				},
+			});
+
+			app.component("order-button", {
+				template: "#order-button",
+			});
+
+			app.mount("#app");
+		</script>
+	</body>
+</html>

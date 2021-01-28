@@ -1,0 +1,37 @@
+<html>
+	<head>
+		<meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+		<meta content="utf-8" http-equiv="encoding" />
+		<title>Vue Learnings</title>
+	</head>
+	<body>
+		<div id="app">
+			{{message}}
+			<component-a :data="message"></component-a>
+			<component-a ></component-a>
+			<component-a :data="message"></component-a>
+			<component-a :data="message"></component-a>
+		</div>
+		<script src="https://unpkg.com/vue@next"></script>
+		<script>
+			const app = Vue.createApp({
+				data() {
+					return {
+						message: "i am a message",
+					};
+				},
+			})
+			app.component("component-a", {
+				template: "<div>I am a component A and {{data}}</div>",
+				props: {
+					data: {
+						type: String,
+						required: true,
+						default: "default message",
+					},
+				},
+			});
+			app.mount("#app");
+		</script>
+	</body>
+</html>

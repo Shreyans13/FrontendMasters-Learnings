@@ -1,0 +1,51 @@
+<html>
+	<head>
+		<meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+		<meta content="utf-8" http-equiv="encoding" />
+		<title>Vue Learnings</title>
+	</head>
+	<body>
+		<div id="app">
+			<div>
+				<h2>{{ text }}</h2>
+				<hr />
+				<app-child @gettaco="updateTaco"></app-child>
+			</div>
+		</div>
+
+		<script type="text/x-template" id="child">
+			<section>
+				<p>Number of tacos: {{ numtacos }} <button @click="numtacos++">Add more tacos</button></p>
+				<p>
+					<button @click="$emit('gettaco', numtacos)" class="order">
+						Click me to order a taco
+					</button>
+				</p>
+			</section>
+		</script>
+		<script src="https://unpkg.com/vue@next"></script>
+		<script>
+			const app = Vue.createApp({
+				data() {
+					return {
+						text: "where is my taco...",
+					};
+				},
+				methods: {
+					updateTaco(numtaco) {
+						this.text = `You ordered ${numtaco} 🌮s!`;
+					},
+				},
+			});
+			app.component("app-child", {
+				template: "#child",
+				data() {
+					return {
+						numtacos: 1,
+					};
+				},
+			});
+			app.mount("#app");
+		</script>
+	</body>
+</html>

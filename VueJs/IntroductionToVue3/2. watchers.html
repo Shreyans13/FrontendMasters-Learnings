@@ -1,0 +1,41 @@
+<html>
+	<head>
+		<meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+		<meta content="utf-8" http-equiv="encoding" />
+		<title>Vue Learnings</title>
+	</head>
+	<body>
+		<div id="app">
+			<button @click="getTaco">Click to order a taco</button>
+			<h2>{{orderStatus}}</h2>
+			<p>{{orderSubmitted}}</p>
+		</div>
+		<script src="https://unpkg.com/vue@next"></script>
+		<script>
+			const app = {
+				data() {
+					return {
+						orderStatus: "Where is my taco...",
+						orderSubmitted: null,
+					};
+				},
+				watch: {
+					orderStatus(newValue) {
+						if (newValue) {
+							this.orderSubmitted =
+								"Your order has been submited";
+						}
+						setTimeout(() => (this.orderSubmitted = ""), 1000);
+					},
+				},
+				methods: {
+					getTaco() {
+						this.orderStatus = "Taco!!";
+					},
+				},
+				computed: {},
+			};
+			Vue.createApp(app).mount("#app");
+		</script>
+	</body>
+</html>
